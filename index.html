@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Manual Image Carousel with Centered Image and Text</title>
+<style>
+  .carousel {
+    position: relative;
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+    margin: auto;
+    margin-bottom: 20px;
+  }
+  .carousel img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .carousel img.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    user-select: none;
+  }
+  .carousel-control.left {
+    left: 10px;
+  }
+  .carousel-control.right {
+    right: 10px;
+  }
+  .carousel-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+
+<div class="carousel">
+  <img src="OIP-C (2).jpg" class="active">
+  <img src="OIP-C.jpg">
+</div>
+
+<div class="carousel-controls">
+  <span class="carousel-control left" id="prevSlide">&#10094;</span>
+  <span class="carousel-control right" id="nextSlide">&#10095;</span>
+</div>
+
+<div class="carousel-text">
+  <div class="carousel-title">猪首</div>
+  猪首铜像曾流失海外，后来通过何鸿燊先生的努力得以回归。2003年，何鸿燊先生向中华抢救流失海外文物专项基金捐款600余万元，将猪首铜像购回，并转赠给保利集团，现存放在北京保利艺术博物馆供公众观赏。在所有十二铜首中，猪首铜像是唯一一个以公益方式回归的兽首铜像。
+</div>
+
+<a href="new_file.html" class="learn-more">了解更多</a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  let currentSlide = 0;
+  const slides = $('.carousel img');
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    slides.removeClass('active').css('transform', 'translateX(100%)');
+    slides.eq(index).addClass('active').css('transform', 'translateX(0)');
+  }
+
+  $('#nextSlide').click(function() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    showSlide(currentSlide);
+  });
+
+  $('#prevSlide').click(function() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    showSlide(currentSlide);
+  });
+
+  showSlide(currentSlide);
+});
+</script>
+
+</body>
+</html>
